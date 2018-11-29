@@ -213,7 +213,7 @@ def kfold_call(data,n_start, n_final,key):
         call_classifiers(x_train, y_train, x_test, y_test)
 
 #---------------Variables and Constants ----------------
-path = "imdb_dataSet_k.csv"
+path = "teste100.csv"
 
 #---------------------Main Code ------------------------
 data = prepareDataSet(path)
@@ -226,10 +226,10 @@ for i in range(5):
 List_ofLists =[(tree_acuracy,"Tree"),(nb_acuracy,"Naive bayes"),(knn_1_acuracy,"KNN -1"),(knn_3_acuracy,"KNN -3"),
                (knn_5_acuracy, "KNN -5"),(wknn_1_acuracy,"WKNN-1"),(wknn_3_acuracy,"WKNN-3"),(wknn_5_acuracy,"WKNN-5"),
                (svm_linear_acuracy,"SVM-Linear"),(svm_rbf_acuracy,"SVM-RBF"),(logi_acuracy,"Logistic Regression")]
-"""
+
 for acuracy_list in List_ofLists:
-    #print(acuracy_list[0])
-    #showStatistics(acuracy_list)
-"""
+    print(acuracy_list[0])
+    showStatistics(acuracy_list)
+
 #-------------This call above calls t-studant hipotesis for classifiers variations-----------------
-showHipotesis2()
+#showHipotesis2()

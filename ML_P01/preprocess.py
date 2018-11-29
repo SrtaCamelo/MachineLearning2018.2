@@ -87,12 +87,12 @@ def pandasDataFrame(tfidf):
     data = pd.DataFrame(tfidf.toarray())
     data = define_class_column(data,len(data))
     print(data)
-    #data.to_csv("imdb_dataSet_k.csv", header=True, mode='a', sep=',')
+    data.to_csv("teste100.csv", header=True, mode='a', sep=',')
 
 
 #------------Main---------------
-mainpath = "C:/Users/SrtaCamelo/Documents/2018.2/Machine_Pacifico/Git_ML/MachineLearning2018.2/ML_P01/DataSets/aclImdb_v1/AllFiles/"     #Change Here to fetch other DataSet
-tags = ["pos_k","neg_k"]
+mainpath = "C:/Users/SrtaCamelo/Documents/2018.2/Machine_Pacifico/Git_ML/MachineLearning2018.2/ML_P01/DataSet/"     #Change Here to fetch other DataSet
+tags = ["pos_100","neg_100"]
 data = []
 for tag in tags:
     path = mainpath+tag
@@ -103,6 +103,7 @@ textList = data[0]+data[1]
 #tokenized_list = tokenizer(textList)
 #print(tokenized_list)
 tfidf = compute_tf_idf(textList)
+print(tfidf)
 pandasDataFrame(tfidf)
 
 
