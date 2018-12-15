@@ -4,28 +4,37 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Dropout
 import pandas as pd
+import cv2
 
-"""
 #CODE
-model = Sequential()
-model.add(Dense(128, input_dim=input_dim))
-model.add(Activation('relu'))
-model.add(Dropout(0.15))
-model.add(Dense(128))
-model.add(Activation('relu'))
-model.add(Dropout(0.15))
-model.add(Dense(nb_classes))
-model.add(Activation('softmax'))
+def prepareDataSet(datapath):
+    #Shuffle
+    data = pd.read_csv(datapath)
+    data = data.sample(frac=1)
+    X = data.iloc[:,1:6]
+    Y = data['Class']
+    Y = pd.get_dummies(Y)
+    x_train, x_test = X.iloc[1:800], X.iloc[801:1071]
+    y_train, y_test = Y.iloc[1:800], Y.iloc[801:1071]
 
-# we'll use categorical xent for the loss, and RMSprop as the optimizer
-model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
+    return x_train, x_test,y_train, y_test
 
-print("Training...")
-model.fit(X_train, y_train, nb_epoch=10, batch_size=16, validation_split=0.1, show_accuracy=True, verbose=2)
+def neuralNetwork(x_train, x_test,y_train, y_test):
+    model = Sequential()
+    #Architeture
+    model.add(Dense(12, input_dim=5, activation='softmax'))
+    model.add(Dense(9, activation='softmax'))
+    #Compilation
+    #'categorical_crossentropy'
+    #‘softmax’
+    model.compile(optimizer='sgd', loss='categorical_crossentropy',metrics=['accuracy'])
+    #Fiting
+    history = model.fit(x_train, y_train, batch_size=10, epochs=100)
+    #Evaluation
+    loss, accuracy = model.evaluate(x_test, y_test)
+    print(accuracy)
 
-print("Generating test predictions...")
-preds = model.predict_classes(X_test, verbose=0)
-
-def write_preds(preds, fname):
-    pd.DataFrame({"ImageId": list(range(1,len(preds)+1)), "Label": preds}).to_csv(fname, index=False, header=True)
-"""
+#main
+path = "h_geometric.csv"
+x_train, x_test,y_train, y_test = prepareDataSet(path)
+neuralNetwork(x_train, x_test,y_train, y_test)
