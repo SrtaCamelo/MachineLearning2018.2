@@ -32,6 +32,7 @@ def neuralNetwork(x_train, x_test,y_train, y_test):
     history = model.fit(x_train, y_train, batch_size=10, epochs=100)
     #Evaluation
     loss, accuracy = model.evaluate(x_test, y_test)
+
     print(accuracy)
 
 #main

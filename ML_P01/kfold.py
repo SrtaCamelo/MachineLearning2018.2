@@ -187,7 +187,7 @@ def call_classifiers(x_train, y_train, x_test, y_test):
 #--------------Shuffle data an Split Features-------------
 def prepareDataSet(datapath):
     #Shuffle
-    data = pd.read_csv(datapath)
+    data = pd.read_csv(datapath) 
     data = data.sample(frac=1)
     return data
 """
@@ -203,7 +203,6 @@ def kfold_call(data,n_start, n_final,key):
 
     X = data.iloc[:,n_start:n_final]
     Y = data[key]
-
 
     kf = KFold(n_splits=10, shuffle=False)
     for train_index, test_index in kf.split(X):
